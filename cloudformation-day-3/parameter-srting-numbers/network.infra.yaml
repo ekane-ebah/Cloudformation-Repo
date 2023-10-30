@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: "ec2 instance automation for Dev environment"
+Description: "vpc automation project"
 Metadata: {}
 
 Parameters: {}
@@ -9,43 +9,19 @@ Mappings: {}
 Conditions: {}
 
 Resources: 
-  #development vpc
+  #Devserver
   DevVPC:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: 10.0.0.0/16
       EnableDnsSupport: true
       Tags:
-           - Key: name
-             Value: DevVPC
-
-  #webserver subnet
-  Devwebserversubnet:
-    Type: AWS::EC2::Subnet
-    Properties:
-      AvailabilityZone: us-east-1b
-      VpcId: !Ref DevVPC
-      CidrBlock: 10.0.20.0/24
-      Tags:
         - Key: Name
-          Value: DevWebserverSubnet          
+          Value: DevVPC
 
 
-
-  #Appserver subnet 
-  DevAppserversubnet:
-    Type: AWS::EC2::Subnet
-    Properties:
-      AvailabilityZone: us-east-1c
-      VpcId: !Ref DevVPC
-      CidrBlock: 10.0.10.0/24
-      Tags:
-        - Key: Name
-          Value: DevAppserverSubnet  
-
-
-  #database subnet         
-  DevDatabaseSubnet:
+  #DevWebserver
+  DevWebserverSubnet:
     Type: AWS::EC2::Subnet
     Properties:
       AvailabilityZone: us-east-1a
@@ -53,5 +29,33 @@ Resources:
       CidrBlock: 10.0.5.0/24
       Tags:
         - Key: Name
+          Value: DevWebserverSubnet
+
+
+         
+ #DevWebserver
+  DevAppserverSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: us-east-1b
+      VpcId: !Ref DevVPC
+      CidrBlock: 10.0.10.0/24
+      Tags:
+        - Key: Name
+          Value: DevAppserverSubnet
+
+
+
+    #DevWebserver
+  DevDatabaseSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: us-east-1c
+      VpcId: !Ref DevVPC
+      CidrBlock: 10.0.20.0/24
+      Tags:
+        - Key: Name
           Value: DevDatabaseSubnet  
+          
+              
 Outputs: {}

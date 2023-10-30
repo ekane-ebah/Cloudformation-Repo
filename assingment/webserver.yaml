@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: "webserver subnet"
+Metadata: {}
+
+Parameters: {}
+
+Mappings: {}
+
+Conditions: {}
+
+Resources: 
+  subnetName:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: us-east-1d
+      VpcId: vpc-0798885d2cec1e8c7
+      CidrBlock: 10.0.7.0/24
+      Tags:
+        - Key: Name
+          Value: webserver
+
+Outputs: {}

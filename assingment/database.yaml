@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: "database subnet"
+Metadata: {}
+
+Parameters: {}
+
+Mappings: {}
+
+Conditions: {}
+
+Resources: 
+  subnetName:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: us-east-1b
+      VpcId: vpc-0798885d2cec1e8c7
+      CidrBlock: 10.0.3.0/24
+      Tags:
+        - Key: Name
+          Value: database
+
+Outputs: {}
