@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: "ec2 instance automation for Dev environment"
+Metadata: {}
+
+Parameters: 
+  Devewebserverkeyname:
+    Description: please select a keypair
+    Type: AWS::EC2::KeyPair::KeyName
+
+Mappings: 
+  DevWebGoldenAMIMap:
+    us-east-1:
+      GoldenAMI: ami-0fc5d935ebf8bc3bc
+    us-west-2:
+      GoldenAMI: ami-0efcece6bed30fd98
+    us-east-2:
+      GoldenAMI: ami-0e83be366243f524a
+    us-west-1:
+      GoldenAMI: ami-0cbd40f694b804622
+
+Conditions: {}
+
+Resources: 
+  DevWebserver:
+    Type: AWS::EC2::Instance
+    Properties:
+      KeyName: !Ref Devewebserverkeyname 
+      ImageId: !FindInMap [ DevWebGoldenAMIMap, !Ref "AWS::Region", GoldenAMI ]
+      InstanceType: t2.micro
+      Monitoring: true
+      UserData: !Base64 |
+        #!/bin/bash 
+        sudo su
+        apt update -y
+        apt -y install apache2
+        systemctl start apache2
+        systemctl enable apache2
+        apt install wget -y
+        wget https://github.com/awanmbandi/google-cloud-projects/raw/jjtech-flix-app/jjtech-streaming-application-v1.zip 
+        apt install unzip -y
+        unzip jjtech-streaming-application-v1.zip
+        rm -f /var/www/html/index.html
+        cp -rf jjtech-streaming-application-v1/* /var/www/html/
+      Tags:
+        - Key: Name
+          Value: DevWebserver
+
+Outputs: {}

@@ -22,6 +22,14 @@
     {
         "ParameterKey": "DevAppserverSubnetCidrBlockPara",
         "ParameterValue": "10.0.5.0/24"
+    },
+    {
+        "ParameterKey": "DevDBserverSubnetAZPara",
+        "ParameterValue": "us-east-1c"
+    },
+    {
+        "ParameterKey": "DevDBserverSubnetCidrBlockPara",
+        "ParameterValue": "10.0.20.0/24"
     }
 ]
 
